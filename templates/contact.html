@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Sell
+{% endblock %}
+
+{% block main %}
+<section class="container-fluid m-auto d-flex flex-column">
+    <div class="d-flex mapouter flex-column mx-auto">
+        <h2 class="py-4">Contact Us</h2>
+        <div class="gmap_canvas"><iframe width="770" height="510" id="gmap_canvas"
+                src="https://maps.google.com/maps?q=No. 4 Churchill Enahoro Street, Gbazango Extension, Kubwa 901101, Abuja, Federal Capital Territory&t=&z=10&ie=UTF8&iwloc=&output=embed"
+                frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+        </div>
+    </div>
+    <div class="d-flex flex-row vetx justify-content-between mx-5 px-5 row">
+        <div class="d-flex flex-column text-end col-6 cavex">
+            <h2 class="tab-name1 pt-5">Address</h2>
+            <p class="par-p">No. 4 Churchill Enahoro Street, Gbazango Extension, Kubwa 901101, Abuja, Federal Capital Territory</p>
+        </div>
+        <div class="d-flex flex-column col-6 text-start cavex">
+            <h2 class="pt-5 tab-name2">Contacts</h2>
+            <a class="telx" href="tel:+2347058400320"><strong>HOT-LINE 1:</strong> +234-705-840-0320</a>
+            <a class="telx" href="tel:+234705840032"><strong>HOT-LINE 2:</strong> +234-706-849-7582</a>
+            <a class="telx" href="mailto:farmfund@gmail.com"><strong>E-MAIL:</strong> farmfund@gmail.com</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

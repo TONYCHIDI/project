@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+User Details
+{% endblock %}
+
+{% block main %}
+<h1>User Profile</h1>
+<br>
+<br>
+<br>
+    <div class="container-fluid row">
+        <div class="col d-flex flex-column align-items-center text-start justify-content-center">
+            <table class="table table-success table-responsive table-sm table-hover mx-auto w-80">
+                <thead>
+                    <tr>
+                        <th scope="Col">PROFILE ITEM</th>
+                        <th scope="Col">VALUE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">Username</td>
+                        <td>{{ username }}</td>
+                    </tr>
+                    <tr>
+                        <td>User Track</td>
+                        <td>{{ track }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email Address</td>
+                        <td>{{ email }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

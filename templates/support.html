@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+24hr Support
+{% endblock %}
+
+{% block main %}
+<form action="/support" method="post">
+    <div class="mb-3 form-group">
+        <input autocomplete="off" autofocus class="form-control mx-auto w-50" name="email" placeholder="user@gmail.com"
+            type="email">
+    </div>
+    <div class="mb-3 form-group">
+        <input autocomplete="off" autofocus class="form-control mx-auto w-50" name="subject"
+            placeholder="Subject or Title" type="text">
+    </div>
+    <div class="mb-3 form-group">
+        <textarea name="message" class="form-control mx-auto w-50" placeholder="Your complaints..." style="height: 200px"></textarea>
+    </div>
+    <button class="btn col-2 mx-auto btn-primary log-btn" type="submit">Send</button>
+</form>
+{% endblock %}

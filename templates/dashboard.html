@@ -1,0 +1,228 @@
+{% extends "layout.html" %}
+
+{% block title %}
+{{ username }}'s Dashboard
+{% endblock %}
+
+{% block main %}
+<div class="d-flex mx-auto border-radius-20 bg-transparent cok">
+    <!-- Nav tabs -->
+    <div class="d-flex align-items-start">
+        <div class="nav flex-column me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <button onclick="openTab(event)" class="nav-link active pe-n3" id="v-pills-home-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
+                aria-selected="true"><i style="height: 40px;" class="fa-solid fa-house"></i><label
+                    class="nav-btn"></label></button>
+            <button onclick="openTab(event)" class="nav-link" id="v-pills-transactions-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-transactions" type="button" role="tab" aria-controls="v-pills-transactions"
+                aria-selected="false"><i style="height: 40px;" class="fa-solid fa-chart-line"></i><label
+                    class="nav-btn"></label></button>
+            <button onclick="openTab(event)" class="nav-link" id="v-pills-project-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-project" type="button" role="tab" aria-controls="v-pills-project"
+                aria-selected="false"><i style="height: 40px;" class="fa-solid fa-diagram-project"></i><label
+                    class="nav-btn"></label></button>
+        </div>
+
+        <!-- Tab panes -->
+        <section class="container-fluid tab-content d-flex flex-column wap" id="v-pills-tabContent">
+            <section class="tab-pane fade show pulz active city" id="v-pills-home" role="tabpanel"
+                aria-labelledby="v-pills-home-tab" tabindex="0">
+                <div class="d-flex flex-column pulx">
+                    <div class="d-flex flex-column">
+                        <h2 class="dash">Dashboard</h2>
+                        <p class="tab-name">Home</p>
+                    </div>
+                    <section class="container-fluid d-flex wapt flex-row">
+                        {% if session["track"] == "Farmer" %}
+                        <div class="corners wapt rounded-4 bg-white mt-5 d-flex mx-auto flex-row">
+                            <div class="d-flex flex-column farm-group p-auto mx-auto">
+                                <p>Total Investment Received</p>
+                                <h3>{{ tot_inv[0]['amount'] }} </h3>
+                            </div>
+                            <div class="d-flex flex-column farm-group p-auto mx-auto">
+                                <p>Total Consultation Fee</p>
+                                <h3>{{ total[0]['amount'] }} </h3>
+                            </div>
+                            <div class="d-flex flex-column farm-group p-auto mx-auto">
+                                <p>Total Needed</p>
+                                <h3>
+                                    {% if needed[0]['needed'] == None %}
+                                    {{ NGN(0) }}
+                                    {% else %}
+                                    {{ NGN(needed[0]['needed']) }}
+                                    {% endif %}
+                                </h3>
+                            </div>
+                            <div class="d-flex flex-column farm-group mx-auto">
+                                <p>Total Raised</p>
+                                <h3>
+                                    {% if raised[0]['raised'] == None %}
+                                    {{ NGN(0) }}
+                                    {% else %}
+                                    {{ NGN(raised[0]['raised']) }}
+                                    {% endif %}
+                                </h3>
+                            </div>
+                        </div>
+                        {% elif session["track"] == "Investor" %}
+                        <div class="corners wapt rounded-4 bg-white mt-5 d-flex mx-auto flex-row">
+                            <div class="d-flex flex-column farm-group p-auto mx-auto">
+                                <p>Total Investment</p>
+                                <h3>{{ NGN(tot_inv[0]['amount']) }} </h3>
+                            </div>
+                            <div class="d-flex flex-column farm-group p-auto mx-auto">
+                                <p>Total Farms Invested On</p>
+                                <h3>{{ total[0]['amount'] }} </h3>
+                            </div>
+                            <div class="d-flex flex-column farm-group p-auto mx-auto">
+                                <p>5% of Investment</p>
+                                <h3>{{ NGN((tot_inv[0]['amount'] * total[0]['amount']) * 5/100) }} </h3>
+                            </div>
+                            <div class="d-flex flex-column mx-auto farm-group">
+                                <p>Expected ROI</p>
+                                <h3>{{ NGN(((tot_inv[0]['amount'] * total[0]['amount']) * 5/100) + (tot_inv[0]['amount']
+                                    * total[0]['amount'])) }} </h3>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="corners wapt rounded-4 bg-white mt-5 d-flex mx-auto flex-row">
+                            <div class="d-flex flex-column farm-group p-auto mx-auto">
+                                <p>Total Consultation Fee</p>
+                                <h3>{{ NGN(total[0]['amount']) }} </h3>
+                            </div>
+                            <div class="d-flex flex-column farm-group p-auto mx-auto">
+                                <p>Total Farms Served</p>
+                                <h3>{{ tot_inv[0]['amount'] }} </h3>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </section>
+                </div>
+            </section>
+            <section class="tab-pane fade pulz city" id="v-pills-transactions" role="tabpanel"
+                aria-labelledby="v-pills-transactions-tab" tabindex="0">
+                <div class="d-flex flex-column pulx">
+                    <div class="d-flex flex-column">
+                        <h2 class="dash">Dashboard</h2>
+                        <p class="tab-name">Transactions</p>
+                    </div>
+                    <section class="container-fluid d-flex wapt flex-row">
+                        {% if session["track"] == "Farmer" %}
+                        <div class="corners wapt rounded-4 bg-white mt-5 d-flex flex-column">
+                            <h1>General Transaction History</h1>
+                            <table class="table table-responsive table-hover table-light table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Farm</th>
+                                        <th scope="col">Deal</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Date & Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in trans %}
+                                    <tr id="deal">
+                                        <td>{{ row["farm_name"] }}</td>
+                                        <td>{{ row["deal"] }}</td>
+                                        <td>{{ NGN(row["amount"]) }}</td>
+                                        <td>{{ row["date"] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% elif session["track"] == "Investor" %}
+                        <div class="corners wapt rounded-4 bg-white mt-5 d-flex flex-column">
+                            <h1>General Transaction History</h1>
+                            <table class="table table-responsive table-hover table-light table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Farm</th>
+                                        <th scope="col">Deal</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Date & Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in trans %}
+                                    <tr id="deal">
+                                        <td>{{ row["farm_name"] }}</td>
+                                        <td>{{ row["deal"] }}</td>
+                                        <td>{{ NGN(row["amount"]) }}</td>
+                                        <td>{{ row["date"] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="corners wapt rounded-4 bg-white mt-5 d-flex flex-column">
+                            <h1>General Transaction History</h1>
+                            <table class="table table-responsive table-hover table-light table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Farm</th>
+                                        <th scope="col">Deal</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Date & Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in trans %}
+                                    <tr id="deal">
+                                        <td>{{ row["farm_name"] }}</td>
+                                        <td>{{ row["deal"] }}</td>
+                                        <td>{{ NGN(row["amount"]) }}</td>
+                                        <td>{{ row["date"] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endif %}
+                    </section>
+                </div>
+            </section>
+            <section class="tab-pane fade pulz city" id="v-pills-project" role="tabpanel"
+                aria-labelledby="v-pills-project-tab" tabindex="0">
+                <div class="d-flex flex-column pulx">
+                    <div class="d-flex flex-column">
+                        <h2 class="dash">Dashboard</h2>
+                        <p class="tab-name">Projects</p>
+                    </div>
+                    <div class="home-middle wapt">
+                        <h2 class="head-text">Projects</h2>
+                        <div class="d-flex wapt flex-wrap justify-content-center">
+                            {% for item in farm %}
+                            <a href="{{ url_for('farm_update', farm_name=item['farm_name']) }}" class="farm-link">
+                                <div class="farm-group">
+                                    <div>
+                                        <img src="/static/assets/farms/{{ item['image'] }}"
+                                            alt="{{ item['farmer'] }}" />
+                                    </div>
+                                    <div>
+                                        <h2>{{ item["farm_name"] }}</h2>
+                                        <p>{{ item["description"] }}</p>
+                                        <h5>Needed: {{ NGN(item["needed"]) }} </h5>
+                                        <div class="progress" role="progressbar" aria-label="Success Example with label"
+                                            aria-valuenow="{{ item['raised'] / item['needed'] * 100 }}"
+                                            aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress-bar bg-success"
+                                                style="width: {{ item['raised'] / item['needed'] * 100 }}%">{{
+                                                item['raised'] /
+                                                item['needed'] * 100 }}%</div>
+                                        </div>
+                                        </h5>
+                                        <h6>Raised: {{ NGN(item["raised"]) }}</h6>
+                                    </div>
+                                </div>
+                                <div class="mb-lg-5"></div>
+                                {% endfor %}
+                            </a>
+                        </div>
+                    </div>
+            </section>
+        </section>
+    </div>
+</div>
+{% endblock %}

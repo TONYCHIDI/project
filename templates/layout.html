@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <!-- Mini description of the webpage -->
+        <meta name="description" content="A Circle Africa's project created for farmers in Nigeria">
+        <!-- Bootstrap -->
+        <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" rel="stylesheet">
+        <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"></script>
+        <!-- JQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/34faa42f11.js" crossorigin="anonymous"></script>
+        <!-- Webpage icon -->
+        <link href="/static/favicon.ico" rel="icon">
+        <!-- Local CSS -->
+        <link href="/static/styles.css" rel="stylesheet">
+        <!-- Local JS -->
+        <script src="/static/app.js"></script>
+        <!-- Webpage Title -->
+        <title>Farmfund: {% block title %}{% endblock %}</title>
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-expand-md sticky-top opacity-75">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/"><img src="/static/logo.svg" width="65px" height="53px" alt="Farmfund"></a>
+                <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse" type="button">
+                    <span class="toggler navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar">
+                    {% if session["user_id"] %}
+                        <ul class="navbar-nav me-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/projects">Projects</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/services">Services</a></li>
+                            <li class="nav-item">
+                                {% if session["track"] == "Farmer" %}
+                                <a class="nav-link" href="/uploads">Uploads</a>
+                                {% elif session["track"] == "Investor" %}
+                                <a class="nav-link" href="/fund">Fund</a>
+                                {% elif session["track"] == "Consultant" %}
+                                <a class="nav-link" href="/consult">Consult</a>
+                                {% endif %}
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                        </ul>
+                        <ul class="navbar-nav ms-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/settings"><i class="fa-solid fa-gear"></i></a></li>
+                        </ul>
+                    {% else %}
+                        <ul class="navbar-nav ms-auto mt-2">
+                            <li class="nav-item"><a class="nav-link log-btn btn-k" href="/register">Register</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+
+        {% if get_flashed_messages() %}
+            <header>
+                <div class="alert alert-primary mb-0 text-center" role="alert">
+                    {{ get_flashed_messages() | join(" ") }}
+                </div>
+            </header>
+        {% endif %}
+
+        <main class="container-fluid py-5 text-center">
+            {% block main %}{% endblock %}
+        </main>
+
+        <footer class="d-flex flex-column small text-center text-muted">
+            <div class="getx d-flex flex-row w-100 justify-content-between align-item-center">
+                <p class="justify-content-center m-auto">Invest or get Investment and full time support to grow and sell your crops</p>
+
+                <a href="/register" class="btn rounded-pill btn-outline-light px-4 colz py-3 my-5">GET STARTED</a>
+            </div>
+            <div class="get2 d-flex flex-column" style="background-color: #1dd87e">
+                <div class="getz d-flex flex-row flex-wrap justify-content-center">
+                    <a class="footer-smooth-acrotag" style="cursor: default;" href="#"><img src="/static/assets/smooth.png" alt="Smooth"><span>Smooth and friendly<strong> user interface</strong></span></a>
+
+                    <a class="footer-support-acrotag" href="/support"><img src="/static/assets/24hr-support.png" alt="Support"><span>24hr Support</span></a>
+
+                    <a class="footer-payment-acrotag" href="/fund"><img src="/static/assets/payment-gateway.png" alt="Payment"><span><strong>Safe & Secure</strong> online Payment</span></a>
+
+                    <a class="footer-farmfund-acrotag" href="/"><img src="/static/assets/farmFund.png" alt="Farmfund" class="footer-farmfund-img"><span>FarmFund</span></a>
+                </div>
+                <div class="getxs d-flex flex-row"><hr class="line"></div>
+                <div class="get22 d-flex flex-row justify-content-between">
+                    <div class="get2x d-flex flex-column">
+                        <p class="footx">WHO WE ARE</p>
+                        <ul class="list list-flush">
+                            <li class="list-item"><a href="/services">About</a></li>
+                            <li class="list-item">Team</li>
+                            <li class="list-item">Work With Us</li>
+                        </ul>
+                    </div>
+                    <div class="get2x d-flex flex-column">
+                        <p class="footx">QUICK LINKS</p>
+                        <ul class="list list-flush">
+                            <li class="list-item"><a href="/login">Login</a></li>
+                            <li class="list-item"><a href="/register">Register</a></li>
+                            <li class="list-item"><a href="/projects">Portfolio</a></li>
+                        </ul>
+                    </div>
+                    <div class="get2x d-flex flex-column">
+                        <p class="footx">CONTACT US</p>
+                        <ul class="list list-flush">
+                            <li class="list-item"><a href="tel:+2347068497582">+2347068497582</a></li>
+                            <li class="list-item"><a href="tel:+234705840032">+234705840032</a></li>
+                            <li class="list-item"><a href="mailto:farmfundp@gmail.com">farmfundp@gmail.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footed d-flex flex-row justify-content-between">
+                <div class="social d-flex flex-row justify-content-between">
+                    <a href="https://www.twitter.com"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="https://www.facebook.com"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    <a href="https://rss.com/"><i class="fa fa-rss" aria-hidden="true"></i></a>
+                </div>
+                <div class="right d-flex flex-row"><p>COPYRIGHT &copy; FARM FUND <script>document.write(new Date().getFullYear())</script></p></div>
+                <div class="d-flex power">Powered by<a class="cs50" href="https://cs50.harvard.edu/x/2023/">CS50x</a></div>
+            </div>
+        </footer>
+
+    </body>
+
+</html>

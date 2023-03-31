@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Consultancy
+{% endblock %}
+
+{% block main %}
+<form action="/consult" method="post">
+    <div class="mb-3">
+        <select autocomplete="off" autofocus class="form-control form-select mx-auto w-auto" name="farm_name"
+            type="text">
+            <option selected disabled>Select Farm</option>
+            {% for farm in farms %}
+            <option value="{{ farm['farm_name'] }}">{{ farm['farm_name'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="amount" placeholder="Amount (N)"
+            type="text">
+    </div>
+    <div class="mb-3">
+        <textarea name="consult" class="form-control mx-auto w-50" placeholder="Consultancy advice..."
+            style="height: 200px"></textarea>
+    </div>
+    <input class="btn btn-primary log-btn" type="submit" value="Offer Consultancy">
+</form>
+{% endblock %}

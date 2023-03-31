@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Uploads
+{% endblock %}
+
+{% block main %}
+<form action="/uploads" method="post" enctype="multipart/form-data">
+    <div class="mb-3 form-group">
+        <input autocomplete="off" autofocus class="form-control mx-auto w-50" name="farm_name" placeholder="Okoro Fish Farm" type="text">
+    </div>
+    <div class="mb-3 form-group">
+        <label for="image">Upload Farm Image</label>
+        <input autocomplete="off"  class="form-control mx-auto w-50"
+        style="visibility: hidden;" id="image" name="image" type="file">
+    </div>
+    <div class="mb-3 form-group">
+        <input autocomplete="off" autofocus class="form-control mx-auto w-50" name="description" placeholder="Description"
+            type="text">
+    </div>
+    <div class="mb-3 form-group">
+        <input autocomplete="off" autofocus class="form-control mx-auto w-50" name="needed" placeholder="Amount needed" type="text">
+    </div>
+    <div class="mb-3 form-group">
+        <input autocomplete="off" autofocus class="form-control mx-auto w-50" name="raised" placeholder="Amount raised" type="text">
+    </div>
+    <div class="mb-3 form-group">
+        <label for="cover_photo">Upload Farm Cover Photo</label>
+        <input autocomplete="off" class="form-control mx-auto w-50"
+        style="visibility: hidden;" id="cover_photo" name="cover_photo" type="file">
+    </div>
+    <div class="mb-3 form-group">
+        <input autocomplete="off" autofocus class="form-control mx-auto w-50" name="proj_description" placeholder="Full Project Description"
+            type="text">
+    </div>
+    <div class="mb-3 form-group">
+        <label for="pix_1">Upload Image 1</label>
+        <input autocomplete="off" class="form-control mx-auto w-50" style="visibility: hidden;" id="pix_1" name="pix_1" type="file">
+    </div>
+    <div class="mb-3 form-group">
+        <label for="pix_2">Upload Image 2</label>
+        <input autocomplete="off" style="visibility: hidden;" class="form-control mx-auto w-50" id="pix_2" name="pix_2" type="file">
+    </div>
+    <div class="mb-3 form-group">
+        <label for="pix_3">Upload Image 3</label>
+        <input autocomplete="off" class="form-control mx-auto w-50" style="visibility: hidden;" id="pix_3" name="pix_3" type="file">
+    </div>
+    <div class="mb-3 form-group">
+        <label for="desc_img">Upload Farm Description Image</label>
+        <input autocomplete="off" class="form-control mx-auto w-50" style="visibility: hidden;" id="desc_img" name="desc_img" type="file">
+    </div>
+    <button class="btn mx-auto btn-primary upld log-btn" type="submit">Upload</button>
+</form>
+{% endblock %}

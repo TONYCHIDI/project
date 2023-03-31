@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Fund Farm
+{% endblock %}
+
+{% block main %}
+<form action="/fund" method="post">
+    <div class="mb-3">
+        <select autocomplete="off" autofocus class="form-control form-select mx-auto w-auto" name="farm_name"
+            type="text">
+            <option selected disabled>Select Farm</option>
+            {% for farm in farms %}
+            <option value="{{ farm['farm_name'] }}">{{ farm['farm_name'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="cash" placeholder="Amount (N)"
+            type="text">
+    </div>
+    <input class="btn btn-primary log-btn" type="submit" value="Fund">
+</form>
+{% endblock %}
